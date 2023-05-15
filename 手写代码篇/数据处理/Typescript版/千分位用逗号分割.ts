@@ -1,10 +1,10 @@
 (() => {
-  function foramt(n) {
-    let str = n.toString();
+  function foramt(n: number) {
+    let str: string = n.toString();
     let decimals = ""; //储存小数部分
     //判断是否有小数  有的话 分割一下  没有的话 返回原始值
     str.indexOf(".") > -1 ? (decimals = str.split(".")[1]) : decimals;
-    let len = str.length;
+    let len: number = str.length;
     if (len < 3) {
       //如果长度小于3  则直接返回
       return str;
