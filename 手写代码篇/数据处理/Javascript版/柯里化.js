@@ -41,11 +41,11 @@
 (function () {
   function add(...args) {
     // 求和函数
-    return args.reduce((a, b) => a + b);
+    return args.reduce((a, b) => a + b, 0);
   }
   function currying(fn) {
     let arges = [];
-    return function temp(newArges) {
+    return function temp(...newArges) {
       if (newArges.length) {
         arges = [...newArges, ...arges];
         return temp;
@@ -57,5 +57,5 @@
     };
   }
   const addcurrying = currying(add);
-  console.log("2", addcurrying(1)(2)(3)());
+  console.log(addcurrying(1)(2)(3)());
 })();
