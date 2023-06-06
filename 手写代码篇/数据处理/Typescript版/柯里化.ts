@@ -28,7 +28,7 @@
   }
   function currying(fn: any) {
     let args: any[] = [];
-    return function temp(...newArgs: any[]) {
+    return function temp(this: any, ...newArgs: any[]) {
       if (newArgs.length) {
         args = [...args, ...newArgs];
         return temp;
