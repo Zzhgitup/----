@@ -8,65 +8,50 @@
   function yellow() {
     console.log("黄灯");
   }
-  const task = (timer: number, light: string, callback: Function) => {
+  //第一种方法，就是定时器+递归
+  const step = (timer: number, ligth: string, back: Function) => {
     setTimeout(() => {
-      if (light == "red") {
-        red();
-      } else if (light == "green") {
-        green();
-      } else {
-        yellow();
-      }
-      callback();
+      if (ligth == "red") red();
+      else if (ligth == "green") green();
+      else yellow();
     }, timer);
   };
-  task(3000, "red", () => {
-    task(2000, "yellow", () => {
-      task(1000, "yellow", () => {
-        Function.prototype;
-      });
-    });
-  });
-  //这个代码只完成了一次循环
-
-  //改成递归调用，返回执行
-  const step = () => {
-    task(3000, "red", () => {
-      task(2000, "yellow", () => {
-        task(1000, "yellow", () => {
-          step();
+  const dich = () => {
+    step(3000, "red", () => {
+      step(2000, "green", () => {
+        step(1000, "yellow", () => {
+          dich();
         });
       });
     });
   };
+  //---------------------------------------------------------------
 
-  //使用promise实现
-  const setp2 = (timer: number, ligth: string) => {
+  //第二种方法 promise
+  const step2 = (timer: number, light: string) => {
     return new Promise<void>((resolve, reject) => {
       setTimeout(() => {
-        if (ligth == "red") red();
-        else if (ligth == "green") green();
+        if (light == "red") red();
+        else if (light == "green") green();
         else yellow();
         resolve();
       }, timer);
     });
   };
-  const setp2task = () => {
-    setp2(3000, "red").then(() => {
-      setp2(2000, "green")
-        .then(() => {
-          setp2(1000, "yellow");
-        })
-        .then(setp2task);
+  const dich2 = () => {
+    step2(3000, "red").then(() => {
+      step2(2000, "green").then(() => {
+        step2(1000, "yellow").then(dich2);
+      });
     });
   };
+  //---------------------------------------------------
 
-  //使用await async实现
-
+  //第三种方法 await
   const step3 = async () => {
-    await setp2(3000, "red");
-    await setp2(2000, "green");
-    await setp2(1000, "yellow");
+    await step2(3000, "red");
+    await step2(2000, "green");
+    await step2(1000, "yellow");
     step3();
   };
   step3();
