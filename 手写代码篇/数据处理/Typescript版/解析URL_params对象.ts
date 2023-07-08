@@ -24,4 +24,24 @@
     return paramsobj;
   }
   console.log(ParseParams(url));
+
+  function Paramsparuse(str: string) {
+    let obj: any = {};
+    let paramstext = str.split("?")[1];
+    let paramsarr = paramstext.split("&");
+    paramsarr.forEach((item: string) => {
+      if (/=/.test(item)) {
+        let [key, val]: [string, any] = item.split("=") as [string, any];
+        val = val.decodeURIComponent();
+        val = /\d+/.test(val) ? parseInt(val) : val;
+        if (obj[key].hasOwnProperty(key)) {
+          obj[key] = [].concat(obj[key], val);
+        } else {
+          obj[key] = val;
+        }
+      } else {
+        obj[item] = true;
+      }
+    });
+  }
 })();
