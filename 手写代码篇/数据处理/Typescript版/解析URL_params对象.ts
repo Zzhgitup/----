@@ -25,7 +25,7 @@
   }
   console.log(ParseParams(url));
 
-  function Paramsparuse(str: string) {
+  /*   function Paramsparuse(str: string) {
     let obj: any = {};
     let paramstext = str.split("?")[1];
     let paramsarr = paramstext.split("&");
@@ -43,5 +43,5 @@
         obj[item] = true;
       }
     });
-  }
+  } */
 })();
