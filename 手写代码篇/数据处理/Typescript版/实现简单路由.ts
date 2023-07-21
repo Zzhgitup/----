@@ -14,3 +14,19 @@ class Route {
     this.routes[this.currentHash];
   }
 }
+
+/* class Route1 {
+  route: any;
+  currentHash: any;
+  constructor() {
+    this.route = {}; //储存路由
+    this.currentHash = ""; //当前路由信息
+  }
+  storeroute(path: string, callback: any) {
+    this.route[path] = callback || function () {};
+  }
+  freshroute() {
+    this.currentHash = location.hash.slice(1) || "/";
+    this.route[this.currentHash];
+  }
+} */
