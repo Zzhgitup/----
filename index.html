@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>内容</h1>
+  </body>
+</html>
+<script>
+  function creatJSONP(src) {
+    const script = document.createElement("script");
+    script.src = src;
+    script.type = "text/javascript";
+    document.body.appendChild(script);
+  }
+  creatJSONP("http://127.0.0.1:7002/api/getjsonp/?callback=handresult");
+  function handresult(res) {
+    console.log(res);
+  }
+  /*  
+  //服务端代码
+   async JSONPtext() {
+    const { ctx } = this;
+    const callbackname = ctx.query.callback;
+    const date = {
+      a: 1,
+      b: 2
+    };
+    const jsonDate = JSON.stringify(date);
+    const jscode = `${callbackname}(${jsonDate})`;
+    ctx.set('Content-type', 'text/javascript');
+    ctx.body = jscode;
+    try {
+    } catch (error) {
+      console.log(error);
+      ctx.body = {
+        code: 500,
+        msg: '系统错误'
+      };
+    }
+  } 
+  */
+</script>
