@@ -11,31 +11,6 @@
 
 总的来说，这段代码是一个递归函数，用于检测一个对象是否存在循环引用。
 */
-/* const isCyleObject = (obj: { [x: string]: any }, parent?: any[]): boolean => {
-	const parentArr = parent || [obj];
-	for (let i in obj) {
-	  if (typeof obj[i] === "object") {
-		let flag = false;
-		parentArr.forEach((element: any) => {
-		  if (element === obj[i]) {
-			flag = true;
-		  }
-		});
-		if (flag) return true;
-		flag = isCyleObject(obj[i], [...parentArr, obj[i]]);
-		if (flag) return true;
-	  } else {
-		return false;
-	  }
-	}
-	return false;
-  };
-  const a = 1;
-  const b = { a };
-  const c = { b };
-  const o = { d: { a: 3 }, c };
-  o.c.b.aa = a;
-  console.log(isCyleObject(o)); */
 (() => {
   const isCycleObject = (obj: any, parent?: any[]): boolean => {
     let parentArr = parent || [obj];
@@ -50,16 +25,25 @@
         if (flag) return true;
         flag = isCycleObject(obj[i], [...parentArr, obj[i]]);
         if (flag) return true;
-      } else {
-        return false;
       }
     }
     return false;
   };
-  const a = {};
-  const b = { a };
-  const c = { b };
-  const o = { d: { a: 3 }, c };
-  o.c.b.a = o;
-  console.log(isCycleObject(o));
+  const isCycleObject2 = (obj: any, parent?: any[]): boolean => {
+    let parentArr = parent || [];
+    for (let i in obj) {
+      if (typeof obj[i] == "object") {
+        let flag = false;
+        parentArr.forEach((element) => {
+          if (element == obj[i]) {
+            flag = true;
+          }
+        });
+        if (flag) return true;
+        flag = isCycleObject2(obj[i], [obj[i], ...parentArr]);
+        if (flag) return true;
+      }
+    }
+    return false;
+  };
 })();
