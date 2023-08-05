@@ -12,7 +12,7 @@
 总的来说，这段代码是一个递归函数，用于检测一个对象是否存在循环引用。
 */
 (() => {
-  const isCycleObject = (obj: any, parent?: any[]): boolean => {
+  /*   const isCycleObject = (obj: any, parent?: any[]): boolean => {
     let parentArr = parent || [obj];
     for (let i in obj) {
       if (typeof obj[i] == "object") {
@@ -28,7 +28,7 @@
       }
     }
     return false;
-  };
+  }; */
   const isCycleObject2 = (obj: any, parent?: any[]): boolean => {
     let parentArr = parent || [];
     for (let i in obj) {
@@ -41,6 +41,21 @@
         });
         if (flag) return true;
         flag = isCycleObject2(obj[i], [obj[i], ...parentArr]);
+        if (flag) return true;
+      }
+    }
+    return false;
+  };
+  const isCycleobj = (obj: any, parent?: any[]): boolean => {
+    let parentArr = parent || [];
+    for (let i in obj) {
+      if (typeof obj[i] == "object") {
+        let flag = false;
+        obj[i].forEach((item: any) => {
+          if (item == obj[i]) flag = true;
+        });
+        if (flag) return true;
+        flag = isCycleobj(obj[i], [obj[i], ...parentArr]);
         if (flag) return true;
       }
     }
